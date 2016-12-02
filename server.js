@@ -48,3 +48,5 @@ mongo.connect( url, function( err, db ) {
     console.log( 'Node app is running on port ', app.get( 'port' ) );
   });
 });
+
+module.exports = app;

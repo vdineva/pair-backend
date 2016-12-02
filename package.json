@@ -4,7 +4,7 @@
   "description": "A simple backend REST API for a pair programming match-up service.",
   "main": "server.js",
   "scripts": {
-    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha **/*.test.js",
+    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha **/*.test.js --timeout 10000",
     "start": "node server.js"
   },
   "repository": {
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
     "mocha": "^3.2.0"
   }
 }
