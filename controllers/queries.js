@@ -14,6 +14,7 @@ module.exports = {
     var setup = req.body.setup;
     var interests = req.body.interests;
     var endTime = convertToMS( availableTime );
+    if ( !username || !availableTime ) return res.status( 200 ).send( { status: 200, errors: "Missing parameters." });
     // create a new post
     var newPost = Post({
       postTime: new Date().getTime(),
@@ -47,6 +48,7 @@ module.exports = {
 
   deletePost: ( req, res ) => {
     var id = new ObjectId( req.params.id );
+    if ( !ObjectID.isValid(id) ) return res.status( 400 ).send( {error: "Invalid id." })
     Post
       .findOneAndRemove( { '_id': id })
       .exec( () => res.redirect( 'http://pairboard.surge.sh' ));
@@ -71,6 +73,7 @@ module.exports = {
   // DELETE /posts/:id
   deleteOnePost: (req, res) => {
     var id = new ObjectId(req.params.id);
+    if ( !ObjectID.isValid(id) ) return res.status( 400 ).send( {error: "Invalid id." })
     Post
       .findOneAndRemove( { '_id': id })
       .then( ( data ) => {

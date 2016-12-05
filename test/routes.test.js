@@ -52,8 +52,6 @@ describe( '/GET posts', () => {
                 res.should.have.status( 200 );
                 res.body.should.be.a( 'object' );
                 res.body.should.have.property( 'errors' );
-                res.body.errors.should.have.property( 'username' );
-                res.body.errors.username.should.have.property( 'kind' ).eql('required');
               done();
             });
       });
@@ -68,13 +66,9 @@ describe( '/GET posts', () => {
             .set( 'content-type', 'application/x-www-form-urlencoded' )
             .send( newPost )
             .end( ( err, res ) => {
-                console.log(res);
                 res.should.have.status( 200 );
                 res.body.should.be.a( 'object' );
                 res.body.should.have.property( 'errors' );
-                res.body.errors.should.have.property( 'endTime' );
-                console.log(res.body.errors);
-                res.body.errors.endTime.should.have.property( 'kind' ).eql( 'required' );
               done();
             });
       });
