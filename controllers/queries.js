@@ -47,8 +47,8 @@ module.exports = {
   // POST /:id
 
   deletePost: ( req, res ) => {
-    var id = new ObjectId( req.params.id );
-    if ( !ObjectID.isValid(id) ) return res.status( 400 ).send( {error: "Invalid id." })
+    var id = req.params.id;
+    if ( !ObjectId.isValid(id) ) return res.status( 400 ).send( {error: "Invalid id." })
     Post
       .findOneAndRemove( { '_id': id })
       .exec( () => res.redirect( 'http://pairboard.surge.sh' ));
@@ -72,8 +72,8 @@ module.exports = {
 
   // DELETE /posts/:id
   deleteOnePost: (req, res) => {
-    var id = new ObjectId(req.params.id);
-    if ( !ObjectID.isValid(id) ) return res.status( 400 ).send( {error: "Invalid id." })
+    var id = req.params.id;
+    if ( !ObjectId.isValid(id) ) return res.status( 400 ).send( {error: "Invalid id." })
     Post
       .findOneAndRemove( { '_id': id })
       .then( ( data ) => {

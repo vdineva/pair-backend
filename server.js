@@ -5,7 +5,6 @@ var app = express();
 var mongoose = require( 'mongoose' );
 var mongodb = require( 'mongodb' );
 var mongo = mongodb.MongoClient;
-var config = require( 'config' );
 
 var Post = require( './models/post.model' );
 
@@ -16,7 +15,7 @@ mongoose.connect( url );
 
 var db = mongoose.connection;
 db.on( 'error', console.error.bind( console, 'connection error:' ));
-if ( config.util.getEnv( 'NODE_ENV' ) !== 'test' ){
+if ( process.env.NODE_ENV !== 'test' ){
   db.once( 'open', function() {
     console.log( 'DB Connected' );
   });
@@ -48,7 +47,9 @@ app.use( '/api/v1', require( './routes' ));
 
 app.set( 'port', ( process.env.PORT || 3000 ));
 app.listen( app.get( 'port' ), function() {
-console.log( 'Node app is running on port ', app.get( 'port' ) );
+  if ( !process.env.NODE_ENV === 'test' ) {
+    console.log( 'Node app is running on port ', app.get( 'port' ) );
+  }
 });
 
 module.exports = app;
