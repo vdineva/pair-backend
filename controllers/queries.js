@@ -14,7 +14,6 @@ module.exports = {
     var setup = req.body.setup;
     var interests = req.body.interests;
     var endTime = convertToMS( availableTime );
-    console.log( 'Received: ', username, availableTime, setup, interests );
     // create a new post
     var newPost = Post({
       postTime: new Date().getTime(),
@@ -24,8 +23,11 @@ module.exports = {
       interests: interests
     });
     newPost.save( err => {
-      if ( err ) return handleError( err );
-      res.redirect( 'http://pairboard.surge.sh' );
+      if ( err ) {
+        res.send( err );
+      } else { 
+         res.redirect( 'http://pairboard.surge.sh' );
+      } // res.json( {message: "Post added successfully!", post });
     })
   },
 
